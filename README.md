@@ -1,9 +1,7 @@
-Securing FastAPI REST Services Using Keycloak IdP Authorization Services
+Securing FastAPI REST Services with JWT and Keycloak IdP
 ===================================================
 
-This guide demonstrates how to integrate REST services with Keycloak Identity and Access Management to provide stateless Authentication and Authorization Services.
-
-Example for RestAPI project is provided for FastAPI
+This guide provides example of integrating REST services with Keycloak Identity and Access Management to provide stateless Authentication and Authorization Services.
 
 Configuring the Keycloak Server
 -------------------
