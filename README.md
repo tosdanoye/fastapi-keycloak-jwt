@@ -42,7 +42,7 @@ You should be able to obtain tokens for any of these users:
 To obtain the auth JWT bearer token, use curl as below (Linux/Mac) or other relevant client (e.g., Postman):
 
 ```shell
-export access_token=$(\
+export token=$(\
 curl -X POST http://{IP-address}:8080/realms/SmartOcean/protocol/openid-connect/token \
 -d 'client_id=SO_service' \
 -d 'username=alice&password=alice&grant_type=password'| jq --raw-output '.access_token' \
