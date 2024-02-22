@@ -55,7 +55,7 @@ After running the command above, you can now access the `http://localhost:8090/a
 for the user `alice` with the `ADMIN` role (realm) as follows:
 
 ```shell
-curl http://localhost:8090/api/v1/admin -H "Authorization: Bearer "$access_token
+curl http://localhost:8090/api/v1/admin -H "Authorization: Bearer "$token
 ```
 
 You should see the following response from the service:
