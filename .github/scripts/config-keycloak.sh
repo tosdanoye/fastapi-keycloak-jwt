@@ -5,3 +5,5 @@ unzip keycloak-23.0.6.zip
 cd keycloak-23.0.6
 cp -R ../../kcdb/data .
 ./bin/kc.sh start-dev &
+sleep 40
+echo "keycloak server started..." 
