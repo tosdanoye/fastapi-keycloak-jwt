@@ -1,4 +1,4 @@
-# workflow to download, configure and run keycloak server (Java environment). Install Python dependencies
+# workflow to run keycloak server (docker container) with pre-configured realm (ADA502) and users. Install Python dependencies
 # Run integration tests - Test Auth/Authz using JWT tokens from Keycloak to access public and protected REST API endpoints
 
 name: Auth-RESTAPI
@@ -6,14 +6,13 @@ name: Auth-RESTAPI
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 permissions:
   contents: read
 
 env:
-  ALICE_PWD: ${{ secrets.ALICE_PWD }}
+  USER1_PWD: ${{ secrets.USER1_PWD }}
+  USER2_PWD: ${{ secrets.USER2_PWD }}
 
 jobs:
   build:
@@ -29,8 +28,13 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Set up and start Keycloak Server
-      run: .github/scripts/config-keycloak.sh
+    - name: Set up and start Keycloak Server via docker container
+      run: |
+        .github/scripts/config-keycloak.sh
+        sleep 40
+      #run: |
+      #  docker run --name keycloak_unoptimized -p 8080:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin -v ./kcdb/data/import:/opt/keycloak/data/import quay.io/keycloak/keycloak:latest start-dev --import-realm
+      #  sleep 40
 
     - name: Set up Python 3.12
       uses: actions/setup-python@v3
@@ -46,8 +50,14 @@ jobs:
     - name: Install dependencies
       run: poetry install
 
+    #- name: Check Keycloak Server up
+    #  run: |
+    #    curl -X POST http://localhost:8080/realms/ADA502/protocol/openid-connect/token --data 'client_id=ada502app&username=user1&password='$USER1_PWD'&grant_type=password'
+    #    curl -X POST http://localhost:8080/realms/ADA502/protocol/openid-connect/token --data 'client_id=ada502app&username=user2&password='$USER2_PWD'&grant_type=password'
+
     - name: Get JWT access token for user
       run: .github/scripts/get-user-token.sh
 
     - name: Test with pytest
-      run: poetry run pytest
+      run: |
+        poetry run pytest
