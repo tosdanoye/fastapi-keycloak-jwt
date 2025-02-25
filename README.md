@@ -8,7 +8,7 @@ Configuring the Keycloak Server
 
 Keycloak can be started in multiple ways: [Keycloak Getting Started guides](https://github.com/keycloak/keycloak?tab=readme-ov-file#getting-started). Here, we'll use the easiest option :-)
 - We'll use pre-configured realm and user data
-- Download the latest release, unzip and copy the data folder [import](kcdb/data/import) to the data folder in your unzipped directory.
+- Download the latest release, unzip and copy the folder [import](kcdb/data/import) to the data folder in your unzipped directory.
 - From that directory, run the command: 
 ```shell
 bin/kc.[sh|bat] start-dev --import-realm`
@@ -27,7 +27,7 @@ There are different endpoints exposed by the service:
 * http://localhost:8090/api/v1/admin/service - can be invoked by users with the `APP_ADMIN` role (client)
 * http://localhost:8090/api/v1/protected - can be invoked by users with the `USER` role (realm/global)
 * http://localhost:8090/api/v1/protected/service - can be invoked by users with the `APP_USER` role (client)
-* http://localhost:8090/api/v1/protected/{location} - can be invoked by users with the `APP_USER` role and with attribute {location} as path parameter
+* http://localhost:8090/api/v1/protected/{location} - can be invoked by users with the `APP_USER` role and with attribute {location} as path parameter as specified in the scope
 * http://localhost:8090/api/v1/ - can be invoked by users with the `APP_USER` role and with attribute {location} as query parameter (e.g., api/v1/?loc=bergen)
 
 To access the resources at the protected endpoints using a JWT bearer token, your client needs to obtain an OAuth2 access token from the Keycloak IdP server.
